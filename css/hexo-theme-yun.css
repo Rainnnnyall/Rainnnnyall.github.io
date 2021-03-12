@@ -229,6 +229,21 @@ body::before {
     opacity: 1;
   }
 }
+body {
+  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/pointer.cur"), auto;
+}
+a {
+  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur"), auto;
+}
+a:hover {
+  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur"), auto;
+}
+.hty-icon-button {
+  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur"), pointer;
+}
+input {
+  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/text.cur"), auto;
+}
 :root {
   --banner-line-color: #000;
   --banner-char-color: #000;
@@ -779,7 +794,7 @@ body::before {
 }
 .wordcloud #wordcloud-canvas,
 .wordcloud #wordcloud-sidebar-canvas {
-  cursor: url("$cursor-pointer"), pointer;
+  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur"), pointer;
 }
 .wordcloud #wordbox {
   pointer-events: none;
@@ -1832,6 +1847,17 @@ body::before {
   margin-bottom: 1rem;
   line-height: 1.5;
 }
+.site-author-status {
+  position: absolute;
+  height: 1.8rem;
+  width: 1.8rem;
+  bottom: 0;
+  right: 0;
+  line-height: 1.8rem;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  background-color: #fff;
+}
 .site-name {
   color: var(--hty-text-color);
   font-family: 'Songti SC', 'Noto Serif SC', STZhongsong, STKaiti, KaiTi, Roboto, serif;
@@ -2113,4 +2139,163 @@ body::before {
 }
 [data-user-color-scheme='dark'] .aplayer {
   color: #000;
+}
+.album-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.album-list-item {
+  display: inline-flex;
+}
+.album-list-item figure {
+  position: relative;
+  width: 15rem;
+  margin: 2rem;
+}
+.album-list-item figure::before {
+  content: '';
+  position: absolute;
+  top: 1%;
+  left: 0.5%;
+  width: 100%;
+  height: 96%;
+  border: 0.25rem solid #fff;
+  background-color: #666;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  transform: rotate(-3deg);
+}
+.album-list-item figure img {
+  vertical-align: bottom;
+  display: inline-flex;
+  border: 0.25rem solid #fff;
+  box-shadow: 0 8px 10px rgba(0,0,0,0.3);
+  padding: 0;
+  transform: rotate(2deg);
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  background-color: #eee;
+}
+.album-list-item figure figcaption {
+  position: absolute;
+  bottom: -2.5rem;
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+.photo-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.photo-list-item {
+  display: inline-flex;
+  position: relative;
+  width: 15rem;
+  margin: 1.5rem;
+  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur"), pointer;
+}
+.photo-list-item img {
+  box-sizing: border-box;
+  vertical-align: bottom;
+  display: inline-flex;
+  border: 0.25rem solid #fff;
+  box-shadow: 0 8px 10px rgba(0,0,0,0.1);
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  background-color: #eee;
+}
+.photo-list-item figcaption {
+  position: absolute;
+  bottom: -1.8rem;
+  display: block;
+  text-align: center;
+  width: 100%;
+  font-size: 0.9rem;
+}
+#decryptContainer {
+  display: flex;
+  height: 10rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+#decrypt-password {
+  outline: none;
+  font-size: 1.5rem;
+  border-radius: 3rem;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #999;
+  box-sizing: border-box;
+  width: 90%;
+  max-width: 800px;
+  font-family: 'Songti SC', 'Noto Serif SC', STZhongsong, STKaiti, KaiTi, Roboto, serif;
+  font-weight: 900;
+  text-align: center;
+}
+#decryptButton {
+  color: #0078e7;
+  background-color: rgba(0,120,231,0.08);
+}
+#decryptButton:active {
+  background-color: rgba(0,120,231,0.3);
+}
+#decryptButton .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+#girls {
+  text-align: center;
+}
+.girls-number {
+  color: #fff;
+}
+.girl-items {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+.girl-item {
+  display: inline-flex;
+  text-align: center;
+  justify-content: center;
+  width: 8rem;
+  margin: 1rem;
+}
+.girl-item .girl-info {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.girl-item .girl-avatar {
+  object-fit: cover;
+  object-position: center top;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  padding: 0.2rem;
+  background-color: #fff;
+  box-shadow: 0 0 1rem rgba(0,0,0,0.12);
+  transition: 0.5s;
+}
+.girl-item .girl-avatar:hover {
+  box-shadow: 0 0 2rem rgba(0,0,0,0.12);
+}
+.girl-item .girl-name {
+  font-size: 0.9rem;
+}
+.girl-item .girl-from {
+  font-size: 12px;
+  font-family: 'Songti SC', 'Noto Serif SC', STZhongsong, STKaiti, KaiTi, Roboto, serif;
+  font-weight: bold;
+  color: var(--hty-secondary-text-color);
+}
+.girl-item .girl-from::before {
+  content: '「';
+}
+.girl-item .girl-from::after {
+  content: '」';
 }

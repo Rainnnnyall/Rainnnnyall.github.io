@@ -1,0 +1,770 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="Rainnnnyall"><meta name="copyright" content="Rainnnnyall"><meta name="generator" content="Hexo 5.2.0"><meta name="theme" content="hexo-theme-yun"><title>Uniapp实现多端开发 | 一直下雨</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.24/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_ed8vp4atwoj.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link class="aplayer-style-marker" rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script class="aplayer-script-marker" src="https://cdn.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" defer></script><script class="meting-script-marker" src="https://cdn.jsdelivr.net/npm/meting@1/dist/Meting.min.js" defer></script><link rel="shortcut icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"example.com","root":"/","title":"Rainy All","version":"1.5.2","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=UA-121354150-1"></script><script>if (CONFIG.hostname === location.hostname) {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-121354150-1');
+}</script><script data-ad-client="ca-pub-2245427233262012" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(function(){
+  var bp = document.createElement('script');
+  var curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else {
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();</script><!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-M9KWR9L');</script><!-- End Google Tag Manager --><meta name="description" content="#1.uni-app的基本使用 课程介绍： 基础部分：  环境搭建 页面外观配置 数据绑定 uni-app的生命周期 组件的使用 uni-app中样式学习 在uni-app中使用字体图标和开启scss 条件注释跨端兼容 uni中的事件 导航跳转 组件创建和通讯，及组件的生命周期 uni-app中使用uni-ui库  项目：极客商城项目 1.1 uni-app介绍 官方网页uni-app 是一个使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Uniapp实现多端开发">
+<meta property="og:url" content="http://example.com/2021/05/05/Uniapp%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%AB%AF%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="一直下雨">
+<meta property="og:description" content="#1.uni-app的基本使用 课程介绍： 基础部分：  环境搭建 页面外观配置 数据绑定 uni-app的生命周期 组件的使用 uni-app中样式学习 在uni-app中使用字体图标和开启scss 条件注释跨端兼容 uni中的事件 导航跳转 组件创建和通讯，及组件的生命周期 uni-app中使用uni-ui库  项目：极客商城项目 1.1 uni-app介绍 官方网页uni-app 是一个使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ehbhgh.github.io/2019/11/29/%E5%88%9D%E5%A7%8Buniapp/images/2view.png">
+<meta property="article:published_time" content="2021-05-05T06:04:52.000Z">
+<meta property="article:modified_time" content="2021-03-11T11:46:46.086Z">
+<meta property="article:author" content="Rainnnnyall">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ehbhgh.github.io/2019/11/29/%E5%88%9D%E5%A7%8Buniapp/images/2view.png"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Rainnnnyall"><img width="96" loading="lazy" src="/images/myhead.png" alt="Rainnnnyall"><span class="site-author-status" title="Looking for dawn.">🌑</span></a><div class="site-author-name"><a href="/about/">Rainnnnyall</a></div><span class="site-name">一直下雨</span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">36</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">5</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">1</span></a></div><a class="site-state-item hty-icon-button" href="/about/#comment" title="留言板"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-clipboard-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Rainnnnyall" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=247102977" title="网易云音乐" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/1579790" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a><a class="links-item hty-icon-button" href="/girls/" title="喜欢的女孩子" style="color:hotpink"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-women-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-uni-app%E4%BB%8B%E7%BB%8D-%E5%AE%98%E6%96%B9%E7%BD%91%E9%A1%B5"><span class="toc-number">1.</span> <span class="toc-text">1.1 uni-app介绍 官方网页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">1.2 环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E5%88%A9%E7%94%A8HbuilderX%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE-js"><span class="toc-number">3.</span> <span class="toc-text">1.3 利用HbuilderX初始化项目(js)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E4%BD%BF%E7%94%A8vue-cli%E8%84%9A%E6%89%8B%E6%9E%B6%E5%88%9B%E5%BB%BAts%E9%A1%B9%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text">1.4 使用vue&#x2F;cli脚手架创建ts项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE"><span class="toc-number">5.</span> <span class="toc-text">1.5 运行项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-%E4%BB%8B%E7%BB%8D%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E4%BD%9C%E7%94%A8"><span class="toc-number">6.</span> <span class="toc-text">1.6 介绍项目目录和文件作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-uni-app%E4%B8%AD%E7%BB%84%E4%BB%B6%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-number">7.</span> <span class="toc-text">2.2 uni-app中组件的创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="toc-number">8.</span> <span class="toc-text">2.3 组件的生命周期函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E7%BB%84%E4%BB%B6%E7%9A%84%E9%80%9A%E8%AE%AF"><span class="toc-number">9.</span> <span class="toc-text">2.4 组件的通讯</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-1-%E7%88%B6%E7%BB%84%E4%BB%B6%E7%BB%99%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC"><span class="toc-number">9.1.</span> <span class="toc-text">2.4.1 父组件给子组件传值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-2-%E5%AD%90%E7%BB%84%E4%BB%B6%E7%BB%99%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC"><span class="toc-number">9.2.</span> <span class="toc-text">2.4.2 子组件给父组件传值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-3-%E5%85%84%E5%BC%9F%E7%BB%84%E4%BB%B6%E9%80%9A%E8%AE%AF"><span class="toc-number">9.3.</span> <span class="toc-text">2.4.3 兄弟组件通讯</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E5%92%8C%E9%A1%B5%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="toc-number"></span> <span class="toc-text">3 全局配置和页面配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E9%80%9A%E8%BF%87globalStyle%E8%BF%9B%E8%A1%8C%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">3.1 通过globalStyle进行全局配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84message%E9%A1%B5%E9%9D%A2"><span class="toc-number">2.</span> <span class="toc-text">3.2 创建新的message页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E9%80%9A%E8%BF%87pages%E6%9D%A5%E9%85%8D%E7%BD%AE%E9%A1%B5%E9%9D%A2"><span class="toc-number">3.</span> <span class="toc-text">3.3 通过pages来配置页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E9%85%8D%E7%BD%AEtabbar"><span class="toc-number">4.</span> <span class="toc-text">3.4 配置tabbar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-condition%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E9%85%8D%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">3.5 condition启动模式配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-uni%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number"></span> <span class="toc-text">4 uni基础组件的基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-text%E6%96%87%E6%9C%AC%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">4.1 text文本组件的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#001-text-%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">1.0.1.</span> <span class="toc-text">001 - text 组件的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#002-%E4%BB%A3%E7%A0%81%E6%A1%88%E4%BE%8B"><span class="toc-number">1.0.2.</span> <span class="toc-text">002 - 代码案例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-view%E8%A7%86%E5%9B%BE%E5%AE%B9%E5%99%A8%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">4.2 view视图容器组件的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#001-%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">2.0.1.</span> <span class="toc-text">001 - 组件的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#002-%E4%BB%A3%E7%A0%81%E6%A1%88%E4%BE%8B-1"><span class="toc-number">2.0.2.</span> <span class="toc-text">002 - 代码案例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-button%E6%8C%89%E9%92%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">4.3 button按钮组件的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#001-%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B1%9E%E6%80%A7-1"><span class="toc-number">3.0.1.</span> <span class="toc-text">001 - 组件的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#002-%E6%A1%88%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="toc-number">3.0.2.</span> <span class="toc-text">002 - 案例代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-4-image%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.1.</span> <span class="toc-text">1.7.4 image组件的使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-uni-app%E4%B8%AD%E7%9A%84%E6%A0%B7%E5%BC%8F"><span class="toc-number"></span> <span class="toc-text">5 uni-app中的样式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-uni%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number"></span> <span class="toc-text">6 uni的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E5%BA%94%E7%94%A8%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.</span> <span class="toc-text">6.1 应用的生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E9%A1%B5%E9%9D%A2%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">2.</span> <span class="toc-text">6.2 页面的生命周期</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-uni%E7%9B%B8%E5%85%B3API"><span class="toc-number"></span> <span class="toc-text">7 uni相关API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0"><span class="toc-number">1.</span> <span class="toc-text">7.1 下拉刷新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-1-%E5%BC%80%E5%90%AF%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0"><span class="toc-number">1.1.</span> <span class="toc-text">7.1.1 开启下拉刷新</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-%E9%80%9A%E8%BF%87%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%BC%80%E5%90%AF"><span class="toc-number">1.1.1.</span> <span class="toc-text">a) 通过配置文件开启</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-%E9%80%9A%E8%BF%87API%E5%BC%80%E5%90%AF"><span class="toc-number">1.1.2.</span> <span class="toc-text">b) 通过API开启</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-2-%E7%9B%91%E5%90%AC%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0"><span class="toc-number">1.2.</span> <span class="toc-text">7.1.2 监听下拉刷新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-3-%E5%85%B3%E9%97%AD%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0"><span class="toc-number">1.3.</span> <span class="toc-text">7.1.3 关闭下拉刷新</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-%E4%B8%8A%E6%8B%89%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">7.2 上拉加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82"><span class="toc-number">3.</span> <span class="toc-text">7.3 网络请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4-%E6%95%B0%E6%8D%AE%E7%BC%93%E5%AD%98"><span class="toc-number">4.</span> <span class="toc-text">7.4 数据缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5-%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E3%80%81%E9%A2%84%E8%A7%88%E5%9B%BE%E7%89%87"><span class="toc-number">5.</span> <span class="toc-text">7.5 上传图片、预览图片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-1-%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87"><span class="toc-number">5.1.</span> <span class="toc-text">7.5.1 上传图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-2-%E9%A2%84%E8%A7%88%E5%9B%BE%E7%89%87"><span class="toc-number">5.2.</span> <span class="toc-text">7.5.2 预览图片</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-6-uni%E4%B8%AD%E7%9A%84%E5%AF%BC%E8%88%AA%E8%B7%B3%E8%BD%AC"><span class="toc-number">6.</span> <span class="toc-text">7.6 uni中的导航跳转</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-1-%E5%88%A9%E7%94%A8navigator%E8%BF%9B%E8%A1%8C%E8%B7%B3%E8%BD%AC"><span class="toc-number">6.1.</span> <span class="toc-text">7.6.1 利用navigator进行跳转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-2-%E5%88%A9%E7%94%A8%E7%BC%96%E7%A8%8B%E5%BC%8F%E5%AF%BC%E8%88%AA%E8%BF%9B%E8%A1%8C%E8%B7%B3%E8%BD%AC"><span class="toc-number">6.2.</span> <span class="toc-text">7.6.2 利用编程式导航进行跳转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-3-%E5%88%A9%E7%94%A8navigateTo%E8%BF%9B%E8%A1%8C%E5%AF%BC%E8%88%AA%E8%B7%B3%E8%BD%AC"><span class="toc-number">6.3.</span> <span class="toc-text">7.6.3 利用navigateTo进行导航跳转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-4-%E5%AF%BC%E8%88%AA%E8%B7%B3%E8%BD%AC%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0"><span class="toc-number">6.4.</span> <span class="toc-text">7.6.4 导航跳转传递参数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E6%9D%A1%E4%BB%B6%E6%B3%A8%E9%87%8A%E5%AE%9E%E7%8E%B0%E8%B7%A8%E7%AB%AF%E5%85%BC%E5%AE%B9"><span class="toc-number"></span> <span class="toc-text">8 条件注释实现跨端兼容</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9D%A1%E4%BB%B6%E6%B3%A8%E9%87%8A"><span class="toc-number">1.</span> <span class="toc-text">8.1 组件的条件注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-api%E7%9A%84%E6%9D%A1%E4%BB%B6%E6%B3%A8%E9%87%8A"><span class="toc-number">2.</span> <span class="toc-text">8.2 api的条件注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-%E6%A0%B7%E5%BC%8F%E7%9A%84%E6%9D%A1%E4%BB%B6%E6%B3%A8%E9%87%8A"><span class="toc-number">3.</span> <span class="toc-text">8.3 样式的条件注释</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-uni-ui%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number"></span> <span class="toc-text">9 uni-ui的使用</span></a></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/Uniapp%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%AB%AF%E5%BC%80%E5%8F%91/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Rainnnnyall"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="一直下雨"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Uniapp实现多端开发<a class="post-edit-link" href="https://github.com/YunYouJun/yunyoujun.github.io/tree/hexo/source/_posts/Uniapp实现多端开发.md" target="_blank" title="编辑" rel="noopener"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-edit-line"></use></svg></a></h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2021-05-05 14:04:52" itemprop="dateCreated datePublished" datetime="2021-05-05T14:04:52+08:00">2021-05-05</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修改时间：2021-03-11 19:46:46" itemprop="dateModified" datetime="2021-03-11T19:46:46+08:00">2021-03-11</time></div><span class="leancloud_visitors" id="/2021/05/05/Uniapp%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%AB%AF%E5%BC%80%E5%8F%91/" data-flag-title="Uniapp实现多端开发"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span class="leancloud-visitors-count"></span></span></span><span class="post-meta-divider">-</span><a href="#comment"><span class="post-meta-item-icon" title="评论数"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-chat-3-line"></use></svg> <span class="waline-comment-count" id="/2021/05/05/Uniapp%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%AB%AF%E5%BC%80%E5%8F%91/"></span></span></a><div class="post-classify"></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#0078E7;"><p>#1.uni-app的基本使用</p>
+<p>课程介绍：</p>
+<p>基础部分：</p>
+<ul>
+<li>环境搭建</li>
+<li>页面外观配置</li>
+<li>数据绑定</li>
+<li>uni-app的生命周期</li>
+<li>组件的使用</li>
+<li>uni-app中样式学习</li>
+<li>在uni-app中使用字体图标和开启scss</li>
+<li>条件注释跨端兼容</li>
+<li>uni中的事件</li>
+<li>导航跳转</li>
+<li>组件创建和通讯，及组件的生命周期</li>
+<li>uni-app中使用uni-ui库</li>
+</ul>
+<p>项目：极客商城项目</p>
+<h2 id="1-1-uni-app介绍-官方网页"><a href="#1-1-uni-app介绍-官方网页" class="headerlink" title="1.1 uni-app介绍 官方网页"></a>1.1 uni-app介绍 <a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/resource">官方网页</a></h2><p><code>uni-app</code> 是一个使用 <a target="_blank" rel="noopener" href="https://vuejs.org/">Vue.js</a> 开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、H5、以及各种小程序（微信/支付宝/百度/头条/QQ/钉钉）等多个平台。</p>
+<p>即使不跨端，<code>uni-app</code>同时也是更好的小程序开发框架。</p>
+<p>具有vue和微信小程序的开发经验，可快速上手uni-app</p>
+<p>为什么要去学习uni-app？</p>
+<p>相对开发者来说，减少了学习成本，因为只学会uni-app之后，即可开发出iOS、Android、H5、以及各种小程序的应用，不需要再去学习开发其他应用的框架，相对公司而言，也大大减少了开发成本。</p>
+<h2 id="1-2-环境搭建"><a href="#1-2-环境搭建" class="headerlink" title="1.2 环境搭建"></a>1.2 环境搭建</h2><p>安装编辑器HbuilderX <a target="_blank" rel="noopener" href="https://www.dcloud.io/hbuilderx.html">下载地址</a></p>
+<p>HBuilderX是通用的前端开发工具，但为<code>uni-app</code>做了特别强化。</p>
+<p>下载App开发版，可开箱即用</p>
+<p>安装微信开发者工具 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html">下载地址</a></p>
+<h2 id="1-3-利用HbuilderX初始化项目-js"><a href="#1-3-利用HbuilderX初始化项目-js" class="headerlink" title="1.3 利用HbuilderX初始化项目(js)"></a>1.3 利用HbuilderX初始化项目(js)</h2><ul>
+<li>点击HbuilderX菜单栏文件&gt;项目&gt;新建</li>
+<li>选择uni-app,填写项目名称，项目创建的目录</li>
+</ul>
+<h2 id="1-4-使用vue-cli脚手架创建ts项目"><a href="#1-4-使用vue-cli脚手架创建ts项目" class="headerlink" title="1.4 使用vue/cli脚手架创建ts项目"></a>1.4 使用vue/cli脚手架创建ts项目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Javascript</span><br><span class="line">vue create -p dcloudio&#x2F;uni-preset-vue my-ts</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-5-运行项目"><a href="#1-5-运行项目" class="headerlink" title="1.5 运行项目"></a>1.5 运行项目</h2><p>在菜单栏中点击运行，运行到浏览器，选择浏览器即可运行</p>
+<p>在微信开发者工具里运行：进入hello-uniapp项目，点击工具栏的运行 -&gt; 运行到小程序模拟器 -&gt; 微信开发者工具，即可在微信开发者工具里面体验uni-app</p>
+<p>在微信开发者工具里运行：进入hello-uniapp项目，点击工具栏的运行 -&gt; 运行到手机或模拟器 -&gt; 选择调式的手机</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>如果是第一次使用，需要先配置小程序ide的相关路径，才能运行成功</li>
+<li>微信开发者工具在设置中安全设置，服务端口开启</li>
+</ul>
+<h2 id="1-6-介绍项目目录和文件作用"><a href="#1-6-介绍项目目录和文件作用" class="headerlink" title="1.6 介绍项目目录和文件作用"></a>1.6 介绍项目目录和文件作用</h2><p><code>pages.json</code> 文件用来对 uni-app 进行全局配置，决定页面文件的路径、窗口样式、原生的导航栏、底部的原生tabbar 等</p>
+<p><code>manifest.json</code> 文件是应用的配置文件，用于指定应用的名称、图标、权限等。</p>
+<p><code>App.vue</code>是我们的跟组件，所有页面都是在<code>App.vue</code>下进行切换的，是页面入口文件，可以调用应用的生命周期函数。</p>
+<p><code>main.js</code>是我们的项目入口文件，主要作用是初始化<code>vue</code>实例并使用需要的插件。</p>
+<p><code>uni.scss</code>文件的用途是为了方便整体控制应用的风格。比如按钮颜色、边框风格，<code>uni.scss</code>文件里预置了一批scss变量预置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line">Code</span><br><span class="line">就是打包目录，在这里有各个平台的打包文件</span><br><span class="line">​&#96;&#96;&#96;pages&#96;&#96;&#96; 所有的页面存放目录</span><br><span class="line"></span><br><span class="line">​&#96;&#96;&#96;static&#96;&#96;&#96; 静态资源目录，例如图片等</span><br><span class="line"></span><br><span class="line">​&#96;&#96;&#96;components&#96;&#96;&#96; 组件存放目录</span><br><span class="line"></span><br><span class="line">为了实现多端兼容，综合考虑编译速度、运行性能等因素，&#96;uni-app&#96; 约定了如下开发规范：</span><br><span class="line"></span><br><span class="line">- 页面文件遵循 [Vue 单文件组件 (SFC) 规范](https:&#x2F;&#x2F;vue-loader.vuejs.org&#x2F;zh&#x2F;spec.html)</span><br><span class="line">- 组件标签靠近小程序规范，详见[uni-app 组件规范](https:&#x2F;&#x2F;uniapp.dcloud.io&#x2F;component&#x2F;README)</span><br><span class="line">- 接口能力（JS API）靠近微信小程序规范，但需将前缀 &#96;wx&#96; 替换为 &#96;uni&#96;，详见[uni-app接口规范](https:&#x2F;&#x2F;uniapp.dcloud.io&#x2F;api&#x2F;README)</span><br><span class="line">- 数据绑定及事件处理同 &#96;Vue.js&#96; 规范，同时补充了App及页面的生命周期</span><br><span class="line">- 为兼容多端运行，建议使用flex布局进行开发</span><br><span class="line"></span><br><span class="line"># 2.vue ts语法</span><br><span class="line"></span><br><span class="line">## 2.1 基本使用</span><br><span class="line"></span><br><span class="line">​&#96;&#96;&#96;javascript</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">		&lt;image class&#x3D;&quot;logo&quot; src&#x3D;&quot;&#x2F;static&#x2F;logo.png&quot;&gt;&lt;&#x2F;image&gt;</span><br><span class="line">		&lt;!--属性绑定--&gt;</span><br><span class="line">		&lt;view class&#x3D;&quot;text-area&quot;&gt;</span><br><span class="line">			&lt;text class&#x3D;&quot;title&quot;&gt;&#123;&#123;title&#125;&#125;&lt;&#x2F;text&gt;</span><br><span class="line">			&lt;view&gt;&#123;&#123;age&#125;&#125;&lt;&#x2F;view&gt;</span><br><span class="line">			&lt;image v-bind:src&#x3D;&quot;img&quot;&gt;&lt;&#x2F;image&gt;</span><br><span class="line">		&lt;&#x2F;view&gt;</span><br><span class="line">		&lt;!--v-if和v-for--&gt;</span><br><span class="line">		&lt;view v-for&#x3D;&quot;(item,i) in arr&quot; :key&#x3D;&quot;i&quot;&gt;名字：&#123;&#123;item.name&#125;&#125;---年龄：&#123;&#123;item.age&#125;&#125;&lt;&#x2F;view&gt;</span><br><span class="line">		&lt;view v-if&#x3D;&quot;flag&quot;&gt;显示我&lt;&#x2F;view&gt;</span><br><span class="line">		&lt;!--点击事件--&gt;</span><br><span class="line">		&lt;button @click&#x3D;&quot;tapHandle(1,$event)&quot;&gt;点我传参&lt;&#x2F;button&gt;</span><br><span class="line">		&lt;button @click.self&#x3D;&quot;printTitle&quot;&gt;点我不传参&lt;&#x2F;button&gt;</span><br><span class="line">		&lt;button @click.stop&#x3D;&quot;title &#x3D; &#39;ggg&#39;&quot;&gt;点我修改title&lt;&#x2F;button&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue,</span><br><span class="line">		Watch</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line"></span><br><span class="line">	@Component(&#123;&#125;)</span><br><span class="line">	export default class Index extends Vue &#123;</span><br><span class="line">		&#x2F;&#x2F;1.响应式属性，对标之前的data函数返回的对象</span><br><span class="line">		private title: String &#x3D; &#39;myTitle&#39;;</span><br><span class="line">		private num: Number &#x3D; 123;</span><br><span class="line">		private img: String &#x3D; &#39;http:&#x2F;&#x2F;destiny001.gitee.io&#x2F;image&#x2F;monkey_02.jpg&#39;</span><br><span class="line">		private arr: &#123;&#125; [] &#x3D; [&#123;</span><br><span class="line">				name: &#39;刘能&#39;,</span><br><span class="line">				age: 29</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				name: &#39;赵四&#39;,</span><br><span class="line">				age: 39</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				name: &#39;宋小宝&#39;,</span><br><span class="line">				age: 49</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				name: &#39;小沈阳&#39;,</span><br><span class="line">				age: 59</span><br><span class="line">			&#125;</span><br><span class="line">		]</span><br><span class="line">		private flag: Boolean &#x3D; true;</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;2.计算属性</span><br><span class="line">		get age(): Number &#123;</span><br><span class="line">			return this.num;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;3.生命周期</span><br><span class="line">		onLoad() &#123;</span><br><span class="line">			this.printTitle();</span><br><span class="line">			let a: string &#x3D; &#39;123&#39;;</span><br><span class="line">			console.log(&quot;onLoad~~~~~~~~~~~~~~~~&quot;)</span><br><span class="line">		&#125;</span><br><span class="line">		onShow() &#123;</span><br><span class="line">			console.log(&quot;onShow~~~~~~~~~~~&quot;)</span><br><span class="line">		&#125;</span><br><span class="line">		mounted() &#123;</span><br><span class="line">			console.log(&quot;mounted~~~~~~~~~~~~~~&quot;)</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;4.属性监听 此处是监听title的变化</span><br><span class="line">		@Watch(&#39;title&#39;)</span><br><span class="line">		titleChange(newVal: Number, oldVal: Number) &#123;</span><br><span class="line">			console.log(newVal, oldVal);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;5.methods，对标之前methods中写的方法</span><br><span class="line">		printTitle(): void &#123; </span><br><span class="line">			console.log(&#39;hahahhhaha&#39;)</span><br><span class="line">		&#125;</span><br><span class="line">		tapHandle(num: number, event: any): void &#123;</span><br><span class="line">			console.log(num, event.type)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">	.content &#123;</span><br><span class="line">		display: flex;</span><br><span class="line">		flex-direction: column;</span><br><span class="line">		align-items: center;</span><br><span class="line">		justify-content: center;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.logo &#123;</span><br><span class="line">		height: 200rpx;</span><br><span class="line">		width: 200rpx;</span><br><span class="line">		margin-top: 200rpx;</span><br><span class="line">		margin-left: auto;</span><br><span class="line">		margin-right: auto;</span><br><span class="line">		margin-bottom: 50rpx;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.text-area &#123;</span><br><span class="line">		display: flex;</span><br><span class="line">		justify-content: center;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.title &#123;</span><br><span class="line">		font-size: 36rpx;</span><br><span class="line">		color: #8f8f94;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">Javascript</span><br><span class="line">&#x2F;&#x2F;1.vue-class-component：强化 Vue 组件，使用 TypeScript&#x2F;装饰器 增强 Vue 组件</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;2.vue-property-decorator 是在 vue-class-component 上增强了更多的结合 Vue 特性的装饰器，新增了这 7 个装饰器：</span><br><span class="line">@Emit  </span><br><span class="line">@Inject    </span><br><span class="line">@Model</span><br><span class="line">@Prop</span><br><span class="line">@Provide</span><br><span class="line">@Watch</span><br><span class="line">@Component (从 vue-class-component 继承)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-uni-app中组件的创建"><a href="#2-2-uni-app中组件的创建" class="headerlink" title="2.2 uni-app中组件的创建"></a>2.2 uni-app中组件的创建</h2><p><a target="_blank" rel="noopener" href="https://juejin.im/post/6844903741456384014">https://juejin.im/post/6844903741456384014</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sllailcp/article/details/102542796/">https://blog.csdn.net/sllailcp/article/details/102542796/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d8ed3aa76e9b">https://www.jianshu.com/p/d8ed3aa76e9b</a></p>
+<p>在uni-app中，可以通过创建一个后缀名为vue的文件，即创建一个组件成功，其他组件可以将该组件通过impot的方式导入，在通过components进行注册即可</p>
+<ul>
+<li><p>创建head组件，在component中创建head.vue文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Javascript</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		这是头部组件</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123; Component,Vue&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line">	</span><br><span class="line">	@Component(&#123;&#125;)</span><br><span class="line">	export default class Head extends Vue&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在其他组件中导入该组件并注册</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Javascript</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">		&lt;Head&gt;&lt;&#x2F;Head&gt;</span><br><span class="line">		&lt;text&gt;</span><br><span class="line">			&#123;&#123;msg|msgFormat(&#39;疯狂+1&#39;, &#39;123&#39;)&#125;&#125;</span><br><span class="line">		&lt;&#x2F;text&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;text v-fontsize&#x3D;&quot;15&quot;&gt;测试文字&lt;&#x2F;text&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line">	import Head from &#39;@&#x2F;components&#x2F;head.vue&#39;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;@Component 装饰器可以接收一个对象作为参数，可以在对象中声明 components ，filters，directives等未提供装饰器的选项，也可以声明computed，watch等</span><br><span class="line">	@Component(&#123;</span><br><span class="line">		components: &#123;</span><br><span class="line">			Head</span><br><span class="line">		&#125;,</span><br><span class="line">		filters: &#123;</span><br><span class="line">			msgFormat: function(msg: string, arg: string, arg2: string) &#123;</span><br><span class="line">				return msg.replace(&#x2F;少年&#x2F;g, arg + arg2)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#x2F;&#x2F;只在浏览器中有效</span><br><span class="line">		directives: &#123; </span><br><span class="line">		   &#39;fontsize&#39;: function (el, binding) &#123; </span><br><span class="line">		        &#x2F;&#x2F; 注意：这个 function 等同于把代码写到了 bind 和 update 中去</span><br><span class="line">		        el.style.fontSize &#x3D; parseInt(binding.value) + &#39;px&#39;</span><br><span class="line">		    &#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">	export default class Index extends Vue &#123;</span><br><span class="line">		private msg: String &#x3D; &#39;曾经，我也是一个单纯的少年，单纯的我，傻傻的问，谁是世界上最单纯的男人&#39;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用组件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Code</span><br><span class="line">&lt;Head&gt;&lt;&#x2F;Head&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="2-3-组件的生命周期函数"><a href="#2-3-组件的生命周期函数" class="headerlink" title="2.3 组件的生命周期函数"></a>2.3 组件的生命周期函数</h2><table>
+<thead>
+<tr>
+<th>beforeCreate</th>
+<th>在实例初始化之后被调用。<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#beforeCreate">详见</a></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>created</td>
+<td>在实例创建完成后被立即调用。<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#created">详见</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>beforeMount</td>
+<td>在挂载开始之前被调用。<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#beforeMount">详见</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>mounted</td>
+<td>挂载到实例上去之后调用。<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#mounted">详见</a> 注意：此处并不能确定子组件被全部挂载，如果需要子组件完全挂载之后在执行操作可以使用<code>$nextTick</code><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#Vue-nextTick">Vue官方文档</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>beforeUpdate</td>
+<td>数据更新时调用，发生在虚拟 DOM 打补丁之前。<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#beforeUpdate">详见</a></td>
+<td>仅H5平台支持</td>
+<td></td>
+</tr>
+<tr>
+<td>updated</td>
+<td>由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#updated">详见</a></td>
+<td>仅H5平台支持</td>
+<td></td>
+</tr>
+<tr>
+<td>beforeDestroy</td>
+<td>实例销毁之前调用。在这一步，实例仍然完全可用。<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#beforeDestroy">详见</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>destroyed</td>
+<td>Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#destroyed">详见</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="2-4-组件的通讯"><a href="#2-4-组件的通讯" class="headerlink" title="2.4 组件的通讯"></a>2.4 组件的通讯</h2><h3 id="2-4-1-父组件给子组件传值"><a href="#2-4-1-父组件给子组件传值" class="headerlink" title="2.4.1 父组件给子组件传值"></a>2.4.1 父组件给子组件传值</h3><p>head.vue通过@props来接受外界传递到组件内部的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Javascript</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		这是头部组件</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue,</span><br><span class="line">		Prop</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line"></span><br><span class="line">	@Component(&#123;&#125;)</span><br><span class="line">	export default class Head extends Vue &#123;</span><br><span class="line">		&#x2F;*</span><br><span class="line">		@Prop(options: (PropOptions | Constructor[] | Constructor) &#x3D; &#123;&#125;)</span><br><span class="line">		</span><br><span class="line">		@Prop装饰器接收一个参数，这个参数可以有三种写法：</span><br><span class="line">		Constructor，例如String，Number，Boolean等，指定 prop 的类型；</span><br><span class="line">		Constructor[]，指定 prop 的可选类型；</span><br><span class="line">		PropOptions，可以使用以下选项：type，default，required，validator。</span><br><span class="line">		*&#x2F;</span><br><span class="line">		&#x2F;&#x2F;!表示非null 非undefined</span><br><span class="line">		@Prop(String) readonly name!: string | undefined;</span><br><span class="line">		@Prop(&#123;</span><br><span class="line">			default: 30,</span><br><span class="line">			type: Number</span><br><span class="line">		&#125;) private age!: number;</span><br><span class="line">		@Prop([String, Boolean]) private sex!: string | boolean;</span><br><span class="line">		</span><br><span class="line">		created()&#123;</span><br><span class="line">			console.log(this.name,this.age,this.sex)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其他组件在使用head组件的时候传递值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Javascript</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">		&lt;Head :name&#x3D;&quot;name&quot; :age&#x3D;&quot;age&quot; :sex&#x3D;&quot;sex&quot;&gt;&lt;&#x2F;Head&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line">	import Head from &#39;@&#x2F;components&#x2F;head.vue&#39;</span><br><span class="line"></span><br><span class="line">	@Component(&#123;</span><br><span class="line">		components:&#123;</span><br><span class="line">			Head</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">	export default class Index extends Vue &#123;</span><br><span class="line">		private name &#x3D; &#39;张三&#39;;</span><br><span class="line">		private age &#x3D; 1;</span><br><span class="line">		private sex &#x3D; &#39;nan&#39;;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-2-子组件给父组件传值"><a href="#2-4-2-子组件给父组件传值" class="headerlink" title="2.4.2 子组件给父组件传值"></a>2.4.2 子组件给父组件传值</h3><p>通过@emit触发事件进行传递参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Javascript</span><br><span class="line">&#x2F;&#x2F;父组件</span><br><span class="line">&lt;Head :name&#x3D;&quot;name&quot; :age&#x3D;&quot;age&quot; :sex&#x3D;&quot;sex&quot; @del&#x3D;&quot;delFromChild&quot; @add&#x3D;&quot;addFromChild&quot;&gt;&lt;&#x2F;Head&gt;</span><br><span class="line"></span><br><span class="line">addFromChild(data: any) &#123;</span><br><span class="line">    &#x2F;&#x2F; this.emitData &#x3D; data;</span><br><span class="line">    console.log(data, &quot;父组件 returnPersons&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">delFromChild(event: MouseEvent,data:any) &#123;</span><br><span class="line">    &#x2F;&#x2F; console.log(this.emitData);</span><br><span class="line">    console.log(event, &quot;父组件 delemit&quot;,data);</span><br><span class="line">&#125;</span><br><span class="line">Javascript</span><br><span class="line">&#x2F;&#x2F;子组件</span><br><span class="line"></span><br><span class="line">&lt;button @click&#x3D;&quot;del($event,&#123;id:1&#125;)&quot;&gt;点击触发del emit&lt;&#x2F;button&gt;</span><br><span class="line">&lt;button @click&#x3D;&quot;add(&#123;name:&#39;张三&#39;&#125;)&quot;&gt;点击触发add emit&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">		@Emit 装饰器接收一个可选参数，该参数是$Emit的第一个参数，充当事件名。如果没有提供这个参数，$Emit会将回调函数名的camelCase转为kebab-case，并将其作为事件名；</span><br><span class="line">		@Emit会将回调函数的返回值作为第二个参数，如果返回值是一个Promise对象，$emit会在Promise对象被标记为resolved之后触发；</span><br><span class="line">		@Emit的回调函数的参数，会放在其返回值之后，一起被$emit当做参数使用。</span><br><span class="line">*&#x2F;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;当前组件的del点击事件会触发delClick执行，delClick会触发父组件传递过来的del执行，就相当于之前的this.$emit()</span><br><span class="line">@Emit(&#39;del&#39;) private delClick(event: MouseEvent, data: any) &#123;&#125;</span><br><span class="line">del(event: MouseEvent, data: any) &#123;</span><br><span class="line">    this.delClick(event, data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 如果此处不设置别名字,则默认使用下面的函数命名,该函数既代表当前组件的点击事件，又代表触发父组件传递过来的add事件</span><br><span class="line">@Emit()</span><br><span class="line">add(p: &#123;</span><br><span class="line">    name: string</span><br><span class="line">    &#125;) &#123;</span><br><span class="line">    console.log(&quot;add&quot;)</span><br><span class="line">    &#x2F;&#x2F; 此处不return,则会默认使用括号里的参数p;</span><br><span class="line">    return p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-3-兄弟组件通讯"><a href="#2-4-3-兄弟组件通讯" class="headerlink" title="2.4.3 兄弟组件通讯"></a>2.4.3 兄弟组件通讯</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">Code</span><br><span class="line">uni.$emit(eventName,OBJECT)  触发全局的自定事件。</span><br><span class="line">uni.$on(eventName,callback)  监听全局的自定义事件。事件可以由 uni.$emit 触发，回调函数会接收所有传入事件触发函数的额外参数。</span><br><span class="line">uni.$off([eventName, callback])  移除全局自定义事件监听器</span><br><span class="line">Javascript</span><br><span class="line">&#x2F;&#x2F;1.head.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		&lt;text&gt;这是头部&lt;&#x2F;text&gt;</span><br><span class="line"></span><br><span class="line">		&lt;button @click&#x3D;&quot;send&quot;&gt;点击向head发送数据&lt;&#x2F;button&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line"></span><br><span class="line">	@Component(&#123;&#125;)</span><br><span class="line">	export default class Head extends Vue &#123;</span><br><span class="line">		send():void&#123;</span><br><span class="line">			uni.$emit(&quot;eventType1&quot;,&quot;你好，head&quot;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;2.foot.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		&lt;text&gt;这是尾巴&lt;&#x2F;text&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue,</span><br><span class="line">		Prop,</span><br><span class="line">		Emit</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line"></span><br><span class="line">	@Component(&#123;&#125;)</span><br><span class="line">	export default class Head extends Vue &#123;</span><br><span class="line">		created()&#123;</span><br><span class="line">			uni.$on(&quot;eventType1&quot;,(data:any)&#x3D;&gt;&#123;</span><br><span class="line">				console.log(&quot;收到来自foot的数据&quot;,data)</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;index.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">		&lt;Head&gt;&lt;&#x2F;Head&gt;</span><br><span class="line">		&lt;Foot&gt;&lt;&#x2F;Foot&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line">	import Head from &#39;@&#x2F;components&#x2F;head.vue&#39;</span><br><span class="line">	import Foot from &#39;@&#x2F;components&#x2F;foot.vue&#39;</span><br><span class="line"></span><br><span class="line">	@Component(&#123;</span><br><span class="line">		components: &#123;</span><br><span class="line">			Head,</span><br><span class="line">			Foot</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">	export default class Index extends Vue &#123;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-全局配置和页面配置"><a href="#3-全局配置和页面配置" class="headerlink" title="3 全局配置和页面配置"></a>3 全局配置和页面配置</h1><h2 id="3-1-通过globalStyle进行全局配置"><a href="#3-1-通过globalStyle进行全局配置" class="headerlink" title="3.1 通过globalStyle进行全局配置"></a>3.1 通过globalStyle进行全局配置</h2><p>用于设置应用的状态栏、导航条、标题、窗口背景色等。<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/collocation/pages?id=globalstyle">详细文档</a></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>navigationBarBackgroundColor</td>
+<td>HexColor</td>
+<td>#F7F7F7</td>
+<td>导航栏背景颜色（同状态栏背景色）</td>
+</tr>
+<tr>
+<td>navigationBarTextStyle</td>
+<td>String</td>
+<td>white</td>
+<td>导航栏标题颜色及状态栏前景颜色，仅支持 black/white</td>
+</tr>
+<tr>
+<td>navigationBarTitleText</td>
+<td>String</td>
+<td></td>
+<td>导航栏标题文字内容</td>
+</tr>
+<tr>
+<td>backgroundColor</td>
+<td>HexColor</td>
+<td>#ffffff</td>
+<td>窗口的背景色</td>
+</tr>
+<tr>
+<td>backgroundTextStyle</td>
+<td>String</td>
+<td>dark</td>
+<td>下拉 loading 的样式，仅支持 dark / light</td>
+</tr>
+<tr>
+<td>enablePullDownRefresh</td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否开启下拉刷新，详见<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/use?id=%E9%A1%B5%E9%9D%A2%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">页面生命周期</a>。</td>
+</tr>
+<tr>
+<td>onReachBottomDistance</td>
+<td>Number</td>
+<td>50</td>
+<td>页面上拉触底事件触发时距页面底部距离，单位只支持px，详见<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/use?id=%E9%A1%B5%E9%9D%A2%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">页面生命周期</a></td>
+</tr>
+</tbody></table>
+<h2 id="3-2-创建新的message页面"><a href="#3-2-创建新的message页面" class="headerlink" title="3.2 创建新的message页面"></a>3.2 创建新的message页面</h2><p>右键pages新建message目录，在message目录下右键新建.vue文件,并选择基本模板</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		这是信息页面</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-通过pages来配置页面"><a href="#3-3-通过pages来配置页面" class="headerlink" title="3.3 通过pages来配置页面"></a>3.3 通过pages来配置页面</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>path</td>
+<td>String</td>
+<td></td>
+<td>配置页面路径</td>
+</tr>
+<tr>
+<td>style</td>
+<td>Object</td>
+<td></td>
+<td>配置页面窗口表现，配置项参考 <a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/collocation/pages?id=style">pageStyle</a></td>
+</tr>
+</tbody></table>
+<p>pages数组数组中第一项表示应用启动页</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&quot;pages&quot;: [ </span><br><span class="line">		&#123;</span><br><span class="line">			&quot;path&quot;:&quot;pages&#x2F;message&#x2F;message&quot;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;</span><br><span class="line">			&quot;path&quot;: &quot;pages&#x2F;index&#x2F;index&quot;,</span><br><span class="line">			&quot;style&quot;: &#123;</span><br><span class="line">				&quot;navigationBarTitleText&quot;: &quot;uni-app&quot;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br></pre></td></tr></table></figure>
+
+<p>通过style修改页面的标题和导航栏背景色，并且设置h5下拉刷新的特有样式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">&quot;pages&quot;: [ &#x2F;&#x2F;pages数组中第一项表示应用启动页，参考：https:&#x2F;&#x2F;uniapp.dcloud.io&#x2F;collocation&#x2F;pages</span><br><span class="line">		&#123;</span><br><span class="line">			&quot;path&quot;:&quot;pages&#x2F;message&#x2F;message&quot;,</span><br><span class="line">			&quot;style&quot;: &#123;</span><br><span class="line">				&quot;navigationBarBackgroundColor&quot;: &quot;#007AFF&quot;,</span><br><span class="line">				&quot;navigationBarTextStyle&quot;: &quot;white&quot;,</span><br><span class="line">				&quot;enablePullDownRefresh&quot;: true,</span><br><span class="line">				&quot;disableScroll&quot;: true,</span><br><span class="line">				&quot;h5&quot;: &#123;</span><br><span class="line">					&quot;pullToRefresh&quot;: &#123;</span><br><span class="line">						&quot;color&quot;: &quot;#007AFF&quot;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4-配置tabbar"><a href="#3-4-配置tabbar" class="headerlink" title="3.4 配置tabbar"></a>3.4 配置tabbar</h2><p>如果应用是一个多 tab 应用，可以通过 tabBar 配置项指定 tab 栏的表现，以及 tab 切换时显示的对应页。</p>
+<p><strong>Tips</strong></p>
+<ul>
+<li>当设置 position 为 top 时，将不会显示 icon</li>
+<li>tabBar 中的 list 是一个数组，只能配置最少2个、最多5个 tab，tab 按数组的顺序排序。</li>
+</ul>
+<p><strong>属性说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>必填</th>
+<th>默认值</th>
+<th>描述</th>
+<th>平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>color</td>
+<td>HexColor</td>
+<td>是</td>
+<td></td>
+<td>tab 上的文字默认颜色</td>
+<td></td>
+</tr>
+<tr>
+<td>selectedColor</td>
+<td>HexColor</td>
+<td>是</td>
+<td></td>
+<td>tab 上的文字选中时的颜色</td>
+<td></td>
+</tr>
+<tr>
+<td>backgroundColor</td>
+<td>HexColor</td>
+<td>是</td>
+<td></td>
+<td>tab 的背景色</td>
+<td></td>
+</tr>
+<tr>
+<td>borderStyle</td>
+<td>String</td>
+<td>否</td>
+<td>black</td>
+<td>tabbar 上边框的颜色，仅支持 black/white</td>
+<td>App 2.3.4+ 支持其他颜色值</td>
+</tr>
+<tr>
+<td>list</td>
+<td>Array</td>
+<td>是</td>
+<td></td>
+<td>tab 的列表，详见 list 属性说明，最少2个、最多5个 tab</td>
+<td></td>
+</tr>
+<tr>
+<td>position</td>
+<td>String</td>
+<td>否</td>
+<td>bottom</td>
+<td>可选值 bottom、top</td>
+<td>top 值仅微信小程序支持</td>
+</tr>
+</tbody></table>
+<p>其中 list 接收一个数组，数组中的每个项都是一个对象，其属性值如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pagePath</td>
+<td>String</td>
+<td>是</td>
+<td>页面路径，必须在 pages 中先定义</td>
+</tr>
+<tr>
+<td>text</td>
+<td>String</td>
+<td>是</td>
+<td>tab 上按钮文字，在 5+APP 和 H5 平台为非必填。例如中间可放一个没有文字的+号图标</td>
+</tr>
+<tr>
+<td>iconPath</td>
+<td>String</td>
+<td>否</td>
+<td>图片路径，icon 大小限制为40kb，建议尺寸为 81px * 81px，当 postion 为 top 时，此参数无效，不支持网络图片，不支持字体图标</td>
+</tr>
+<tr>
+<td>selectedIconPath</td>
+<td>String</td>
+<td>否</td>
+<td>选中时的图片路径，icon 大小限制为40kb，建议尺寸为 81px * 81px ，当 postion 为 top 时，此参数无效</td>
+</tr>
+</tbody></table>
+<p>案例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">&quot;tabBar&quot;: &#123;</span><br><span class="line">		&quot;list&quot;: [</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;text&quot;: &quot;首页&quot;,</span><br><span class="line">				&quot;pagePath&quot;:&quot;pages&#x2F;index&#x2F;index&quot;,</span><br><span class="line">				&quot;iconPath&quot;:&quot;static&#x2F;tabs&#x2F;home.png&quot;,</span><br><span class="line">				&quot;selectedIconPath&quot;:&quot;static&#x2F;tabs&#x2F;home-active.png&quot;</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;text&quot;: &quot;信息&quot;,</span><br><span class="line">				&quot;pagePath&quot;:&quot;pages&#x2F;message&#x2F;message&quot;,</span><br><span class="line">				&quot;iconPath&quot;:&quot;static&#x2F;tabs&#x2F;message.png&quot;,</span><br><span class="line">				&quot;selectedIconPath&quot;:&quot;static&#x2F;tabs&#x2F;message-active.png&quot;</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;text&quot;: &quot;我们&quot;,</span><br><span class="line">				&quot;pagePath&quot;:&quot;pages&#x2F;contact&#x2F;contact&quot;,</span><br><span class="line">				&quot;iconPath&quot;:&quot;static&#x2F;tabs&#x2F;contact.png&quot;,</span><br><span class="line">				&quot;selectedIconPath&quot;:&quot;static&#x2F;tabs&#x2F;contact-active.png&quot;</span><br><span class="line">			&#125;</span><br><span class="line">		]</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-5-condition启动模式配置"><a href="#3-5-condition启动模式配置" class="headerlink" title="3.5 condition启动模式配置"></a>3.5 condition启动模式配置</h2><p>启动模式配置，仅开发期间生效，用于模拟直达页面的场景，如：小程序转发后，用户点击所打开的页面。</p>
+<p>记得要在微信开发工具里选中你要调试的模式</p>
+<p><strong>属性说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>是否必填</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>current</td>
+<td>Number</td>
+<td>是</td>
+<td>当前激活的模式，list节点的索引值</td>
+</tr>
+<tr>
+<td>list</td>
+<td>Array</td>
+<td>是</td>
+<td>启动模式列表</td>
+</tr>
+</tbody></table>
+<p><strong>list说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>是否必填</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>String</td>
+<td>是</td>
+<td>启动模式名称</td>
+</tr>
+<tr>
+<td>path</td>
+<td>String</td>
+<td>是</td>
+<td>启动页面路径</td>
+</tr>
+<tr>
+<td>query</td>
+<td>String</td>
+<td>否</td>
+<td>启动参数，可在页面的 <a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/use?id=%E9%A1%B5%E9%9D%A2%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">onLoad</a> 函数里获得</td>
+</tr>
+</tbody></table>
+<h1 id="4-uni基础组件的基本使用"><a href="#4-uni基础组件的基本使用" class="headerlink" title="4 uni基础组件的基本使用"></a>4 uni基础组件的基本使用</h1><p>uni-app提供了丰富的基础组件给开发者，开发者可以像搭积木一样，组合各种组件拼接称自己的应用</p>
+<p>uni-app中的组件，就像 <code>HTML</code> 中的 <code>div</code> 、<code>p</code>、<code>span</code> 等标签的作用一样，用于搭建页面的基础结构</p>
+<h2 id="4-1-text文本组件的用法"><a href="#4-1-text文本组件的用法" class="headerlink" title="4.1 text文本组件的用法"></a>4.1 text文本组件的用法</h2><h4 id="001-text-组件的属性"><a href="#001-text-组件的属性" class="headerlink" title="001 - text 组件的属性"></a>001 - text 组件的属性</h4><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>selectable</td>
+<td>boolean</td>
+<td>false</td>
+<td>否</td>
+<td>文本是否可选</td>
+</tr>
+<tr>
+<td>space</td>
+<td>string</td>
+<td>.</td>
+<td>否</td>
+<td>显示连续空格，可选参数：<code>ensp</code>、<code>emsp</code>、<code>nbsp</code></td>
+</tr>
+<tr>
+<td>decode</td>
+<td>boolean</td>
+<td>false</td>
+<td>否</td>
+<td>是否解码</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>text</code> 组件相当于行内标签、在同一行显示</li>
+<li>除了文本节点以外的其他节点都无法长按选中</li>
+</ul>
+<h4 id="002-代码案例"><a href="#002-代码案例" class="headerlink" title="002 - 代码案例"></a>002 - 代码案例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;view&gt;</span><br><span class="line">  &lt;!-- 长按文本是否可选 --&gt;</span><br><span class="line">  &lt;text selectable&#x3D;&#39;true&#39;&gt;来了老弟&lt;&#x2F;text&gt;</span><br><span class="line">&lt;&#x2F;view&gt;</span><br><span class="line"></span><br><span class="line">&lt;view&gt;</span><br><span class="line">  &lt;!-- 显示连续空格的方式 --&gt;</span><br><span class="line">  &lt;view&gt;</span><br><span class="line">    &lt;text space&#x3D;&#39;ensp&#39;&gt;来了  老弟&lt;&#x2F;text&gt;</span><br><span class="line">  &lt;&#x2F;view&gt;</span><br><span class="line">  &lt;view&gt;</span><br><span class="line">    &lt;text space&#x3D;&#39;emsp&#39;&gt;来了  老弟&lt;&#x2F;text&gt;</span><br><span class="line">  &lt;&#x2F;view&gt;</span><br><span class="line">  &lt;view&gt;</span><br><span class="line">    &lt;text space&#x3D;&#39;nbsp&#39;&gt;来了  老弟&lt;&#x2F;text&gt;</span><br><span class="line">  &lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;view&gt;</span><br><span class="line"></span><br><span class="line">&lt;view&gt;</span><br><span class="line">  &lt;text&gt;skyblue&lt;&#x2F;text&gt;</span><br><span class="line">&lt;&#x2F;view&gt;</span><br><span class="line"></span><br><span class="line">&lt;view&gt;</span><br><span class="line">  &lt;!-- 是否解码 --&gt;</span><br><span class="line">  &lt;text decode&#x3D;&#39;true&#39;&gt;&amp;nbsp; &lt; &gt; &amp; &amp;apos; &amp;ensp; &amp;emsp;&lt;&#x2F;text&gt;</span><br><span class="line">&lt;&#x2F;view&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-view视图容器组件的用法"><a href="#4-2-view视图容器组件的用法" class="headerlink" title="4.2 view视图容器组件的用法"></a>4.2 view视图容器组件的用法</h2><blockquote>
+<p>View 视图容器， 类似于 HTML 中的 div</p>
+</blockquote>
+<h4 id="001-组件的属性"><a href="#001-组件的属性" class="headerlink" title="001 - 组件的属性"></a>001 - 组件的属性</h4><p><a target="_blank" rel="noopener" href="https://ehbhgh.github.io/2019/11/29/%E5%88%9D%E5%A7%8Buniapp/images/2view.png"><img src="https://ehbhgh.github.io/2019/11/29/%E5%88%9D%E5%A7%8Buniapp/images/2view.png" alt="img" loading="lazy"></a></p>
+<h4 id="002-代码案例-1"><a href="#002-代码案例-1" class="headerlink" title="002 - 代码案例"></a>002 - 代码案例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;view class&#x3D;&quot;box2&quot; hover-class&#x3D;&quot;box2_active&quot;&gt;</span><br><span class="line">  &lt;view class&#x3D;&#39;box1&#39; hover-class&#x3D;&#39;active&#39; hover-stop-propagation :hover-start-time&#x3D;&quot;2000&quot; :hover-stay-time&#x3D;&#39;2000&#39;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;view&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3-button按钮组件的用法"><a href="#4-3-button按钮组件的用法" class="headerlink" title="4.3 button按钮组件的用法"></a>4.3 button按钮组件的用法</h2><h4 id="001-组件的属性-1"><a href="#001-组件的属性-1" class="headerlink" title="001 - 组件的属性"></a>001 - 组件的属性</h4><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>size</td>
+<td>String</td>
+<td>default</td>
+<td>按钮的大小</td>
+</tr>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>default</td>
+<td>按钮的样式类型</td>
+</tr>
+<tr>
+<td>plain</td>
+<td>Boolean</td>
+<td>false</td>
+<td>按钮是否镂空，背景色透明</td>
+</tr>
+<tr>
+<td>disabled</td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否按钮</td>
+</tr>
+<tr>
+<td>loading</td>
+<td>Boolean</td>
+<td>false</td>
+<td>名称是否带 loading t图标</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>button</code> 组件默认独占一行，设置 <code>size</code> 为 <code>mini</code> 时可以在一行显示多个</li>
+</ul>
+<h4 id="002-案例代码"><a href="#002-案例代码" class="headerlink" title="002 - 案例代码"></a>002 - 案例代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;button size&#x3D;&#39;mini&#39; type&#x3D;&#39;primary&#39;&gt;前端&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;button size&#x3D;&#39;mini&#39; type&#x3D;&#39;default&#39; disabled&#x3D;&#39;true&#39;&gt;前端&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;button size&#x3D;&#39;mini&#39; type&#x3D;&#39;warn&#39; loading&#x3D;&#39;true&#39;&gt;前端&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-7-4-image组件的使用"><a href="#1-7-4-image组件的使用" class="headerlink" title="1.7.4 image组件的使用"></a>1.7.4 image组件的使用</h3><p><a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/component/image?id=image">image</a>图片。</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+<th>平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>src</td>
+<td>String</td>
+<td></td>
+<td>图片资源地址</td>
+<td></td>
+</tr>
+<tr>
+<td>mode</td>
+<td>String</td>
+<td>‘scaleToFill’</td>
+<td>图片裁剪、缩放的模式</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>Tips</strong></p>
+<ul>
+<li><code>&lt;image&gt;</code> 组件默认宽度 300px、高度 225px；</li>
+<li><code>src</code> 仅支持相对路径、绝对路径，支持 base64 码；</li>
+<li>页面结构复杂，css样式太多的情况，使用 image 可能导致样式生效较慢，出现 “闪一下” 的情况，此时设置 <code>image&#123;will-change: transform&#125;</code> ,可优化此问题。</li>
+</ul>
+<h1 id="5-uni-app中的样式"><a href="#5-uni-app中的样式" class="headerlink" title="5 uni-app中的样式"></a>5 uni-app中的样式</h1><ul>
+<li><p>rpx 即响应式px，一种根据屏幕宽度自适应的动态单位。以750宽的屏幕为基准，750rpx恰好为屏幕宽度。屏幕变宽，rpx 实际显示效果会等比放大。</p>
+</li>
+<li><p>使用<code>@import</code>语句可以导入外联样式表，<code>@import</code>后跟需要导入的外联样式表的相对路径，用<code>;</code>表示语句结束</p>
+</li>
+<li><p>支持基本常用的选择器class、id、element等</p>
+</li>
+<li><p>在 <code>uni-app</code> 中不能使用 <code>*</code> 选择器。</p>
+</li>
+<li><p><code>page</code> 相当于 <code>body</code> 节点</p>
+</li>
+<li><p>定义在 App.vue 中的样式为全局样式，作用于每一个页面。在 pages 目录下 的 vue 文件中定义的样式（scoped）为局部样式，只作用在对应的页面，并会覆盖 App.vue 中相同的选择器。</p>
+</li>
+<li><p><code>uni-app</code> 支持使用字体图标，使用方式与普通 <code>web</code> 项目相同，需要注意以下几点：</p>
+<ul>
+<li><p>字体文件小于 40kb，<code>uni-app</code> 会自动将其转化为 base64 格式；</p>
+</li>
+<li><p>字体文件大于等于 40kb， 需开发者自己转换，否则使用将不生效；</p>
+</li>
+<li><p>字体文件的引用路径推荐使用以 ~@ 开头的绝对路径。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f423b4e937af">https://www.jianshu.com/p/f423b4e937af</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Code</span><br><span class="line">@font-face &#123;</span><br><span class="line">    font-family: test1-icon;</span><br><span class="line">    src: url(&#39;~@&#x2F;static&#x2F;iconfont.ttf&#39;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>如何使用scss或者less</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Code</span><br><span class="line">&#x2F;&#x2F;1.安装插件</span><br><span class="line">npm install less less-loader --save</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;2.vue文件中使用 &lt;style lang&#x3D;&quot;less&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="6-uni的生命周期"><a href="#6-uni的生命周期" class="headerlink" title="6 uni的生命周期"></a>6 uni的生命周期</h1><h2 id="6-1-应用的生命周期"><a href="#6-1-应用的生命周期" class="headerlink" title="6.1 应用的生命周期"></a>6.1 应用的生命周期</h2><p>生命周期的概念：一个对象从创建、运行、销毁的整个过程被成为生命周期。</p>
+<p>生命周期函数：在生命周期中每个阶段会伴随着每一个函数的触发，这些函数被称为生命周期函数</p>
+<p><code>uni-app</code> 支持如下应用生命周期函数：</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onLaunch</td>
+<td>当<code>uni-app</code> 初始化完成时触发（全局只触发一次）</td>
+</tr>
+<tr>
+<td>onShow</td>
+<td>当 <code>uni-app</code> 启动，或从后台进入前台显示</td>
+</tr>
+<tr>
+<td>onHide</td>
+<td>当 <code>uni-app</code> 从前台进入后台</td>
+</tr>
+<tr>
+<td>onError</td>
+<td>当 <code>uni-app</code> 报错时触发</td>
+</tr>
+</tbody></table>
+<h2 id="6-2-页面的生命周期"><a href="#6-2-页面的生命周期" class="headerlink" title="6.2 页面的生命周期"></a>6.2 页面的生命周期</h2><p><code>uni-app</code> 支持如下页面生命周期函数：</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>说明</th>
+<th>平台差异说明</th>
+<th>最低版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onLoad</td>
+<td>监听页面加载，其参数为上个页面传递的数据，参数类型为Object（用于页面传参），参考<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/api/router?id=navigateto">示例</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onShow</td>
+<td>监听页面显示。页面每次出现在屏幕上都触发，包括从下级页面点返回露出当前页面</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onReady</td>
+<td>监听页面初次渲染完成。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onHide</td>
+<td>监听页面隐藏</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onUnload</td>
+<td>监听页面卸载</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="7-uni相关API"><a href="#7-uni相关API" class="headerlink" title="7 uni相关API"></a>7 uni相关API</h1><h2 id="7-1-下拉刷新"><a href="#7-1-下拉刷新" class="headerlink" title="7.1 下拉刷新"></a>7.1 下拉刷新</h2><h3 id="7-1-1-开启下拉刷新"><a href="#7-1-1-开启下拉刷新" class="headerlink" title="7.1.1 开启下拉刷新"></a>7.1.1 开启下拉刷新</h3><p>在uni-app中有两种方式开启下拉刷新</p>
+<ul>
+<li>需要在 <code>pages.json</code> 里，找到的当前页面的pages节点，并在 <code>style</code> 选项中开启 <code>enablePullDownRefresh</code></li>
+<li>通过调用uni.startPullDownRefresh方法来开启下拉刷新</li>
+</ul>
+<h4 id="a-通过配置文件开启"><a href="#a-通过配置文件开启" class="headerlink" title="a) 通过配置文件开启"></a>a) 通过配置文件开启</h4><p>通过pages.json文件中找到当前页面的pages节点，并在 <code>style</code> 选项中开启 <code>enablePullDownRefresh</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">&#123;</span><br><span class="line">  &quot;path&quot;:&quot;pages&#x2F;list&#x2F;list&quot;,</span><br><span class="line">    &quot;style&quot;:&#123;</span><br><span class="line">      &quot;enablePullDownRefresh&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="b-通过API开启"><a href="#b-通过API开启" class="headerlink" title="b) 通过API开启"></a>b) 通过API开启</h4><p><a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/api/ui/pulldown">api文档</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">uni.startPullDownRefresh(&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-1-2-监听下拉刷新"><a href="#7-1-2-监听下拉刷新" class="headerlink" title="7.1.2 监听下拉刷新"></a>7.1.2 监听下拉刷新</h3><p>通过onPullDownRefresh可以监听到下拉刷新的动作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		这是信息页面</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line"></span><br><span class="line">	@Component(&#123;&#125;)</span><br><span class="line">	export default class Index extends Vue &#123;</span><br><span class="line"></span><br><span class="line">		startPull(): void &#123;</span><br><span class="line">			uni.startPullDownRefresh(&#123;&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">		onPullDownRefresh(): void &#123;</span><br><span class="line">			console.log(&#39;触发下拉刷新了&#39;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-1-3-关闭下拉刷新"><a href="#7-1-3-关闭下拉刷新" class="headerlink" title="7.1.3 关闭下拉刷新"></a>7.1.3 关闭下拉刷新</h3><p>uni.stopPullDownRefresh() 停止当前页面下拉刷新</p>
+<h2 id="7-2-上拉加载"><a href="#7-2-上拉加载" class="headerlink" title="7.2 上拉加载"></a>7.2 上拉加载</h2><p>通过在pages.json文件中找到当前页面的pages节点下style中配置onReachBottomDistance可以设置距离底部开启加载的距离，默认为50px</p>
+<p>通过onReachBottom监听到触底的行为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		&lt;view v-for&#x3D;&quot;(item,index) in arr&quot; :key&#x3D;&quot;index&quot; class&#x3D;&quot;item&quot;&gt;</span><br><span class="line">			&#123;&#123;item&#125;&#125;</span><br><span class="line">		&lt;&#x2F;view&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line"></span><br><span class="line">	@Component(&#123;&#125;)</span><br><span class="line">	export default class Index extends Vue &#123;</span><br><span class="line">		private arr &#x3D; [&#39;前端&#39;, &#39;java&#39;, &#39;ui&#39;, &#39;大数据&#39;, &#39;前端&#39;, &#39;java&#39;, &#39;ui&#39;, &#39;大数据&#39;,&#39;ui&#39;, &#39;大数据&#39;];</span><br><span class="line">		startPull(): void &#123;</span><br><span class="line">			uni.startPullDownRefresh(&#123;&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">		onPullDownRefresh(): void &#123;</span><br><span class="line">			console.log(&#39;触发下拉刷新了&#39;)</span><br><span class="line">		&#125;</span><br><span class="line">		onReachBottom() &#123;</span><br><span class="line">			console.log(&#39;触底了&#39;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang&#x3D;&quot;less&quot;&gt;</span><br><span class="line">	.item &#123;</span><br><span class="line">		height: 100px;</span><br><span class="line">		line-height: 100px;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;App.vue中添加</span><br><span class="line">&lt;style&gt;</span><br><span class="line">	page&#123;</span><br><span class="line">		overflow-y:scroll!important;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-3-网络请求"><a href="#7-3-网络请求" class="headerlink" title="7.3 网络请求"></a>7.3 网络请求</h2><p>在uni中可以调用uni.request方法进行请求网络请求</p>
+<p>需要注意的是：在小程序中网络相关的 API 在使用前需要配置域名白名单。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Javascript</span><br><span class="line">uni.request(&#123;</span><br><span class="line">    url: &#39;http:&#x2F;&#x2F;localhost&#x2F;myUniApp&#x2F;php&#x2F;login.php&#39;, &#x2F;&#x2F;仅为示例，并非真实接口地址。</span><br><span class="line">    data: &#123;&#x2F;&#x2F;参数</span><br><span class="line">        rawData: rawData,</span><br><span class="line">        code: loginRes.code</span><br><span class="line">    &#125;,</span><br><span class="line">    header: &#123;</span><br><span class="line">        &#39;custom-header&#39;: &#39;hello&#39; &#x2F;&#x2F;自定义请求头信息</span><br><span class="line">    &#125;,</span><br><span class="line">    method:&#39;POST&#39;&#x2F;&#x2F;请求方式  或GET</span><br><span class="line">    success: res &#x3D;&gt; &#123;</span><br><span class="line">        console.log(&#39;返回&#39;, res.data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>请求示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		&lt;button @click&#x3D;&quot;sendGet&quot;&gt;发送请求&lt;&#x2F;button&gt;</span><br><span class="line">		&lt;view v-if&#x3D;&quot;movieData&quot;&gt;</span><br><span class="line">			&lt;text&gt;电影名字：&#123;&#123;movieData.originalName&#125;&#125;&lt;&#x2F;text&gt;</span><br><span class="line">			&lt;view&gt;</span><br><span class="line">				导演：</span><br><span class="line">				&lt;text v-for&#x3D;&quot;item in movieData.director&quot;&gt;</span><br><span class="line">					&#123;&#123;item.data[0].name&#125;&#125;</span><br><span class="line">				&lt;&#x2F;text&gt;</span><br><span class="line">			&lt;&#x2F;view&gt;</span><br><span class="line">			&lt;view&gt;电影信息</span><br><span class="line">				&#123;&#123;movieData.data[0].genre&#125;&#125;</span><br><span class="line">				&#123;&#123;movieData.data[0].language&#125;&#125;</span><br><span class="line">				&#123;&#123;movieData.data[0].description&#125;&#125;</span><br><span class="line">				&#123;&#123;movieData.data[0].country&#125;&#125;</span><br><span class="line">			&lt;&#x2F;view&gt;</span><br><span class="line">		&lt;&#x2F;view&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">	</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line"></span><br><span class="line">	type MovieBasicType &#x3D; &#123;</span><br><span class="line">		genre:string</span><br><span class="line">		name:string</span><br><span class="line">		lang:string</span><br><span class="line">		language:string</span><br><span class="line">		poster:string</span><br><span class="line">		description:string</span><br><span class="line">		country:string</span><br><span class="line">	&#125;</span><br><span class="line">	type MovieDirectorType &#x3D; &#123;</span><br><span class="line">		name:string,</span><br><span class="line">		lang:string</span><br><span class="line">	&#125;</span><br><span class="line">	type MovieDataType &#x3D; &#123;</span><br><span class="line">		id?:string,</span><br><span class="line">		originalName?:string,</span><br><span class="line">		duration?:number,</span><br><span class="line">		data?:MovieBasicType[],</span><br><span class="line">		director?:&#123;data:MovieDirectorType[]&#125;[]</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	@Component(&#123;&#125;)</span><br><span class="line">	export default class Index extends Vue &#123;</span><br><span class="line">		private movieData:MovieDataType|null &#x3D; null</span><br><span class="line">		</span><br><span class="line">		sendGet():void &#123;</span><br><span class="line">			uni.request(&#123;</span><br><span class="line">				url: &#39;https:&#x2F;&#x2F;movie.querydata.org&#x2F;api?id&#x3D;1302425&#39;,</span><br><span class="line">				success:(res) &#x3D;&gt;&#123;</span><br><span class="line">					const resobj &#x3D; res.data;</span><br><span class="line">					this.movieData &#x3D; resobj as MovieDataType;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;uni-app中对ts的支持只是一般，没有非常严格</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-4-数据缓存"><a href="#7-4-数据缓存" class="headerlink" title="7.4 数据缓存"></a>7.4 数据缓存</h2><p><a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/api/storage/storage?id=setstorage">官方文档</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">Javascript</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		&lt;button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;setStor&quot;&gt;存储数据-异步&lt;&#x2F;button&gt;</span><br><span class="line">		&lt;button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;setStorSync&quot;&gt;存储数据-同步&lt;&#x2F;button&gt;</span><br><span class="line">		&lt;button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;getStorage&quot;&gt;获取数据&lt;&#x2F;button&gt;</span><br><span class="line">		&lt;button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;getStorageSync&quot;&gt;获取数据-同步&lt;&#x2F;button&gt;</span><br><span class="line">		&lt;button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;removeStorage&quot;&gt;删除数据&lt;&#x2F;button&gt;</span><br><span class="line">		&lt;button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;removeStorageSync&quot;&gt;删除数据-同步&lt;&#x2F;button&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line"></span><br><span class="line">	@Component(&#123;&#125;)</span><br><span class="line">	export default class Index extends Vue &#123;</span><br><span class="line"></span><br><span class="line">		setStor(): void &#123;</span><br><span class="line">			uni.setStorage(&#123;</span><br><span class="line">				key: &#39;id&#39;,</span><br><span class="line">				data: 100,</span><br><span class="line">				success() &#123;</span><br><span class="line">					console.log(&#39;存储成功&#39;)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">		setStorSync(): void &#123;</span><br><span class="line">			uni.setStorageSync(&#39;id2&#39;, 100)</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		getStorage(): void &#123;</span><br><span class="line">			uni.getStorage(&#123;</span><br><span class="line">				key: &#39;id&#39;,</span><br><span class="line">				success: res &#x3D;&gt; &#123;</span><br><span class="line">					console.log(res)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">		getStorageSync(): void &#123;</span><br><span class="line">			const id &#x3D; uni.getStorageSync(&#39;id&#39;)</span><br><span class="line">			console.log(id)</span><br><span class="line">		&#125;</span><br><span class="line">		removeStorage(): void &#123;</span><br><span class="line">			uni.removeStorage(&#123;</span><br><span class="line">				key: &#39;id&#39;,</span><br><span class="line">				success: function() &#123;</span><br><span class="line">					console.log(&#39;删除成功&#39;)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">		removeStorageSync(): void &#123;</span><br><span class="line">			uni.removeStorageSync(&#39;id&#39;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-5-上传图片、预览图片"><a href="#7-5-上传图片、预览图片" class="headerlink" title="7.5 上传图片、预览图片"></a>7.5 上传图片、预览图片</h2><h3 id="7-5-1-上传图片"><a href="#7-5-1-上传图片" class="headerlink" title="7.5.1 上传图片"></a>7.5.1 上传图片</h3><p>uni.chooseImage方法从本地相册选择图片或使用相机拍照。</p>
+<p>案例代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		&lt;button @click&#x3D;&quot;chooseImg&quot; type&#x3D;&quot;primary&quot;&gt;上传图片&lt;&#x2F;button&gt;</span><br><span class="line">		&lt;view&gt;</span><br><span class="line">			&lt;image v-for&#x3D;&quot;item in imgArr&quot; :src&#x3D;&quot;item&quot; :key&#x3D;&quot;index&quot;&gt;&lt;&#x2F;image&gt;</span><br><span class="line">		&lt;&#x2F;view&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">	import &#123;</span><br><span class="line">		Component,</span><br><span class="line">		Vue</span><br><span class="line">	&#125; from &quot;vue-property-decorator&quot;;</span><br><span class="line"></span><br><span class="line">	@Component(&#123;&#125;)</span><br><span class="line">	export default class Index extends Vue &#123;</span><br><span class="line">		private imgArr &#x3D; []</span><br><span class="line"></span><br><span class="line">		chooseImg(): void &#123;</span><br><span class="line">			uni.chooseImage(&#123;</span><br><span class="line">				count: 9,</span><br><span class="line">				success: res &#x3D;&gt; &#123;</span><br><span class="line">					this.imgArr &#x3D; res.tempFilePaths</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-5-2-预览图片"><a href="#7-5-2-预览图片" class="headerlink" title="7.5.2 预览图片"></a>7.5.2 预览图片</h3><p>结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;view&gt;</span><br><span class="line">	&lt;image v-for&#x3D;&quot;item in imgArr&quot; :src&#x3D;&quot;item&quot; @click&#x3D;&quot;previewImg(item)&quot; :key&#x3D;&quot;item&quot;&gt;&lt;&#x2F;image&gt;</span><br><span class="line">&lt;&#x2F;view&gt;</span><br></pre></td></tr></table></figure>
+
+<p>预览图片的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">previewImg (current:any):void &#123;</span><br><span class="line">  uni.previewImage(&#123;</span><br><span class="line">    urls: this.imgArr,</span><br><span class="line">    current</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-6-uni中的导航跳转"><a href="#7-6-uni中的导航跳转" class="headerlink" title="7.6 uni中的导航跳转"></a>7.6 uni中的导航跳转</h2><h3 id="7-6-1-利用navigator进行跳转"><a href="#7-6-1-利用navigator进行跳转" class="headerlink" title="7.6.1 利用navigator进行跳转"></a>7.6.1 利用navigator进行跳转</h3><p>navigator详细文档：<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/component/navigator">文档地址</a></p>
+<p>跳转到普通页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;navigator url&#x3D;&quot;&#x2F;pages&#x2F;about&#x2F;about&quot; hover-class&#x3D;&quot;navigator-hover&quot;&gt;</span><br><span class="line">  &lt;button type&#x3D;&quot;default&quot;&gt;跳转到关于页面&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;navigator&gt;</span><br></pre></td></tr></table></figure>
+
+<p>跳转到tabbar页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;navigator url&#x3D;&quot;&#x2F;pages&#x2F;message&#x2F;message&quot; open-type&#x3D;&quot;switchTab&quot;&gt;</span><br><span class="line">  &lt;button type&#x3D;&quot;default&quot;&gt;跳转到message页面&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;navigator&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-6-2-利用编程式导航进行跳转"><a href="#7-6-2-利用编程式导航进行跳转" class="headerlink" title="7.6.2 利用编程式导航进行跳转"></a>7.6.2 利用编程式导航进行跳转</h3><p><a target="_blank" rel="noopener" href="https://ehbhgh.github.io/2019/11/29/%E5%88%9D%E5%A7%8Buniapp/[uni.navigateTo](https://uniapp.dcloud.io/api/router?id=navigateto)">导航跳转文档</a></p>
+<h3 id="7-6-3-利用navigateTo进行导航跳转"><a href="#7-6-3-利用navigateTo进行导航跳转" class="headerlink" title="7.6.3 利用navigateTo进行导航跳转"></a>7.6.3 利用navigateTo进行导航跳转</h3><p>保留当前页面，跳转到应用内的某个页面，使用<code>uni.navigateBack</code>可以返回到原页面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;goAbout&quot;&gt;跳转到关于页面&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过navigateTo方法进行跳转到普通页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">goAbout ():void &#123;</span><br><span class="line">  uni.navigateTo(&#123;</span><br><span class="line">    url: &#39;&#x2F;pages&#x2F;about&#x2F;about&#39;,</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>通过switchTab跳转到tabbar页面</strong></p>
+<p>跳转到tabbar页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;goMessage&quot;&gt;跳转到message页面&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过switchTab方法进行跳转</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">goMessage ():void  &#123;</span><br><span class="line">  uni.switchTab(&#123;</span><br><span class="line">    url: &#39;&#x2F;pages&#x2F;message&#x2F;message&#39;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>redirectTo进行跳转</strong></p>
+<p>关闭当前页面，跳转到应用内的某个页面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;!-- template --&gt;</span><br><span class="line">&lt;button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;goMessage&quot;&gt;跳转到message页面&lt;&#x2F;button&gt;</span><br><span class="line">&lt;!-- js --&gt;</span><br><span class="line">goMessage ():void  &#123;</span><br><span class="line">  uni.switchTab(&#123;</span><br><span class="line">    url: &#39;&#x2F;pages&#x2F;message&#x2F;message&#39;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过onUnload测试当前组件确实卸载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">onUnload () &#123;</span><br><span class="line">  console.log(&#39;组件卸载了&#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-6-4-导航跳转传递参数"><a href="#7-6-4-导航跳转传递参数" class="headerlink" title="7.6.4 导航跳转传递参数"></a>7.6.4 导航跳转传递参数</h3><p>在导航进行跳转到下一个页面的同时，可以给下一个页面传递相应的参数，接收参数的页面可以通过onLoad生命周期进行接收</p>
+<p>传递参数的页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">goAbout ():void  &#123;</span><br><span class="line">  uni.navigateTo(&#123;</span><br><span class="line">    url: &#39;&#x2F;pages&#x2F;about&#x2F;about?id&#x3D;80&#39;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接收参数的页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">onLoad (options) &#123;</span><br><span class="line">    console.log(options)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="8-条件注释实现跨端兼容"><a href="#8-条件注释实现跨端兼容" class="headerlink" title="8 条件注释实现跨端兼容"></a>8 条件注释实现跨端兼容</h1><p>条件编译是用特殊的注释作为标记，在编译时根据这些特殊的注释，将注释里面的代码编译到不同平台。</p>
+<p><strong>写法：</strong>以 #ifdef 加平台标识 开头，以 #endif 结尾。</p>
+<p>平台标识</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>平台</th>
+<th>参考文档</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>APP-PLUS</td>
+<td>5+App</td>
+<td><a target="_blank" rel="noopener" href="http://www.html5plus.org/doc/">HTML5+ 规范</a></td>
+</tr>
+<tr>
+<td>H5</td>
+<td>H5</td>
+<td></td>
+</tr>
+<tr>
+<td>MP-WEIXIN</td>
+<td>微信小程序</td>
+<td><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/">微信小程序</a></td>
+</tr>
+<tr>
+<td>MP-ALIPAY</td>
+<td>支付宝小程序</td>
+<td><a target="_blank" rel="noopener" href="https://docs.alipay.com/mini/developer/getting-started">支付宝小程序</a></td>
+</tr>
+<tr>
+<td>MP-BAIDU</td>
+<td>百度小程序</td>
+<td><a target="_blank" rel="noopener" href="https://smartprogram.baidu.com/docs/develop/tutorial/codedir/">百度小程序</a></td>
+</tr>
+<tr>
+<td>MP-TOUTIAO</td>
+<td>头条小程序</td>
+<td><a target="_blank" rel="noopener" href="https://developer.toutiao.com/dev/cn/mini-app/develop/framework/basic-reference/introduction">头条小程序</a></td>
+</tr>
+<tr>
+<td>MP-QQ</td>
+<td>QQ小程序</td>
+<td>（目前仅cli版支持）</td>
+</tr>
+<tr>
+<td>MP</td>
+<td>微信小程序/支付宝小程序/百度小程序/头条小程序/QQ小程序</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="8-1-组件的条件注释"><a href="#8-1-组件的条件注释" class="headerlink" title="8.1 组件的条件注释"></a>8.1 组件的条件注释</h2><p>代码演示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Html</span><br><span class="line">&lt;!-- #ifdef H5 --&gt;</span><br><span class="line">&lt;view&gt;</span><br><span class="line">  h5页面会显示</span><br><span class="line">&lt;&#x2F;view&gt;</span><br><span class="line">&lt;!-- #endif --&gt;</span><br><span class="line">&lt;!-- #ifdef MP-WEIXIN --&gt;</span><br><span class="line">&lt;view&gt;</span><br><span class="line">  微信小程序会显示</span><br><span class="line">&lt;&#x2F;view&gt;</span><br><span class="line">&lt;!-- #endif --&gt;</span><br><span class="line">&lt;!-- #ifdef APP-PLUS --&gt;</span><br><span class="line">&lt;view&gt;</span><br><span class="line">  app会显示</span><br><span class="line">&lt;&#x2F;view&gt;</span><br><span class="line">&lt;!-- #endif --&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-2-api的条件注释"><a href="#8-2-api的条件注释" class="headerlink" title="8.2 api的条件注释"></a>8.2 api的条件注释</h2><p>代码演示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Js</span><br><span class="line">onLoad () &#123;</span><br><span class="line">  &#x2F;&#x2F;#ifdef MP-WEIXIN</span><br><span class="line">  console.log(&#39;微信小程序&#39;)</span><br><span class="line">  &#x2F;&#x2F;#endif</span><br><span class="line">  &#x2F;&#x2F;#ifdef H5</span><br><span class="line">  console.log(&#39;h5页面&#39;)</span><br><span class="line">  &#x2F;&#x2F;#endif</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-3-样式的条件注释"><a href="#8-3-样式的条件注释" class="headerlink" title="8.3 样式的条件注释"></a>8.3 样式的条件注释</h2><p>代码演示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Css</span><br><span class="line">&#x2F;* #ifdef H5 *&#x2F;</span><br><span class="line">view&#123;</span><br><span class="line">  height: 100px;</span><br><span class="line">  line-height: 100px;</span><br><span class="line">  background: red;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;* #endif *&#x2F;</span><br><span class="line">&#x2F;* #ifdef MP-WEIXIN *&#x2F;</span><br><span class="line">view&#123;</span><br><span class="line">  height: 100px;</span><br><span class="line">  line-height: 100px;</span><br><span class="line">  background: green;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;* #endif *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h1 id="9-uni-ui的使用"><a href="#9-uni-ui的使用" class="headerlink" title="9 uni-ui的使用"></a>9 uni-ui的使用</h1><p>uni-app中的UI组件库：<a target="_blank" rel="noopener" href="https://ask.dcloud.net.cn/article/35489">https://ask.dcloud.net.cn/article/35489</a></p>
+<p><a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/component/README?id=uniui">uni-ui文档</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">Javascript</span><br><span class="line">&#x2F;&#x2F;1.将资料中的uni-ui放入到项目components目录下(注意：不要npm install @dcloudio&#x2F;uni-ui ，这种方式在子组件中无法使用)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;2.安装sass-loader</span><br><span class="line">npm install node-sass sass-loader@8.0.2      重启hubuilderX</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;3.在页面组件和自定义组件中使用uni-ui</span><br><span class="line">import uniBadge from &quot;@&#x2F;components&#x2F;uni-ui&#x2F;lib&#x2F;uni-badge&#x2F;uni-badge.vue&quot;;</span><br><span class="line">import uniGrid from &quot;@&#x2F;components&#x2F;uni-ui&#x2F;lib&#x2F;uni-grid&#x2F;uni-grid.vue&quot;;</span><br><span class="line">import uniGridItem from &quot;@&#x2F;components&#x2F;uni-ui&#x2F;lib&#x2F;uni-grid-item&#x2F;uni-grid-item.vue&quot;;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        uniBadge,</span><br><span class="line">        uniGrid,</span><br><span class="line">        uniGridItem</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		&lt;uni-badge text&#x3D;&quot;1&quot;&gt;&lt;&#x2F;uni-badge&gt;</span><br><span class="line">		&lt;uni-badge text&#x3D;&quot;2&quot; type&#x3D;&quot;success&quot;&gt;&lt;&#x2F;uni-badge&gt;</span><br><span class="line">		&lt;uni-badge text&#x3D;&quot;3&quot; type&#x3D;&quot;primary&quot; :inverted&#x3D;&quot;true&quot;&gt;&lt;&#x2F;uni-badge&gt;</span><br><span class="line">		&lt;uni-grid :column&#x3D;&quot;3&quot;&gt;</span><br><span class="line">			&lt;uni-grid-item&gt;</span><br><span class="line">				&lt;text class&#x3D;&quot;text&quot;&gt;文本&lt;&#x2F;text&gt;</span><br><span class="line">			&lt;&#x2F;uni-grid-item&gt;</span><br><span class="line">			&lt;uni-grid-item&gt;</span><br><span class="line">				&lt;text class&#x3D;&quot;text&quot;&gt;文本&lt;&#x2F;text&gt;</span><br><span class="line">			&lt;&#x2F;uni-grid-item&gt;</span><br><span class="line">			&lt;uni-grid-item&gt;</span><br><span class="line">				&lt;text class&#x3D;&quot;text&quot;&gt;文本&lt;&#x2F;text&gt;</span><br><span class="line">			&lt;&#x2F;uni-grid-item&gt;</span><br><span class="line">		&lt;&#x2F;uni-grid&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure></div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">我很可爱，请给我钱</div><div id="qr" style="display:none;"><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/alipay-qrcode.jpg"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/alipay-qrcode.jpg" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/qqpay-qrcode.png"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/qqpay-qrcode.png" alt="QQ 支付" title="QQ 支付"></a><div><span style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/wechatpay-qrcode.jpg"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/wechatpay-qrcode.jpg" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>Rainnnnyall</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/2021/05/05/Uniapp%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%AB%AF%E5%BC%80%E5%8F%91/" title="Uniapp实现多端开发">http://example.com/2021/05/05/Uniapp%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%AB%AF%E5%BC%80%E5%8F%91/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/2021/04/15/%E6%B5%85%E8%B0%88TypeScript/" rel="next" title="浅谈TypeScript"><span class="post-nav-text">浅谈TypeScript</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>如果您有任何关于博客内容的相关讨论，欢迎前往 <a href="https://github.com/YunYouJun/yunyoujun.github.io/discussions" target="_blank">GitHub Discussions</a> 与我交流。</span><br></div><div id="waline"></div><script>Yun.utils.getScript("https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js", () => {
+  const walineConfig = {"enable":true,"serverURL":"https://waline.yunyoujun.cn","comment":true,"visitor":true,"avatarCDN":"https://cdn.v2ex.com/gravatar/","placeholder":"填写邮箱，可以收到回复通知哦～","requiredFields":["nick"],"el":"#waline","lang":"zh-CN"}
+  walineConfig.path = "/2021/05/05/Uniapp%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%AB%AF%E5%BC%80%E5%8F%91/"
+  new Waline(walineConfig)
+}, window.Waline);</script></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备17038157号</a></div><div class="copyright"><span>&copy; 2016 – 2021 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Rainnnnyall</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v5.2.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.5.2</span></div><div class="footer-custom-text"><a style="display:inline-block" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="blank" title="又拍云"><img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" alt="upyun"/></a></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><div class="aplayer no-destroy" id="aplayer" data-id="308168565" data-server="netease" data-type="playlist" data-fixed="true" data-theme="#0078E7" data-loop="all" data-order="list" data-preload="auto" data-volume="0.7" data-mutex data-lrctype="0" data-listmaxheight="340px" data-storagename="metingjs"></div></div></body></html>
